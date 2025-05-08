@@ -1,7 +1,7 @@
 # Auto-Transfer
 This is a Script For Auto Transfer from one/many wallet to one/many wallet
 
-## How to run? Join Our elegram Channel
+## How to run? Join Our Telegram Channel
 
 <div align="center">
   <a href="https://t.me/airdropseeker_official" target="_blank">
