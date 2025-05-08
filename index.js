@@ -29,7 +29,7 @@ const erc20Abi = [
 // Fungsi banner
 function showBanner() {
     console.clear();
-    console.log(chalk.greenBright(`
+    console.log(chalk.magentaBright(`
 ========================================
   █████╗ ██╗   ██╗████████╗ ██████╗ 
  ██╔══██╗██║   ██║╚══██╔══╝██╔═══██╗
