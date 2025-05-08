@@ -176,12 +176,25 @@ async function autoTransfer(selectedRpc) {
                     const recipient = recipients[j];
                     console.log(chalk.blueBright(`➡️   Kirim ke ${recipient}...`));
                     try {
+                       const gasPrice = await provider.gasPrice;
+                       const gasLimit = 21000n; // default untuk transaksi simple
+                       const totalGasCost = gasPrice * gasLimit;
+
+                       const balance = await provider.getBalance(senderWallet.address);
+                       const amountToSend = balance - totalGasCost;
+
+                       if (amountToSend <= 0) {
+                          console.log(chalk.red(`❌   Saldo tidak cukup setelah dikurangi gas.`));
+                          continue;
+                        }
+
                         const tx = await senderWallet.sendTransaction({
                             to: recipient,
-                            value: rawAmount,
-                            gasPrice,
-                            gasLimit
+                            value: amountToSend,
+                            gasPrice: gasPrice,
+                            gasLimit: gasLimit
                         });
+
                         console.log(chalk.green(`✅   TX Hash: ${tx.hash}`));
                         await tx.wait();
                     } catch (err) {
