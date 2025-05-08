@@ -31,20 +31,25 @@ const erc20Abi = [
 // Fungsi untuk menampilkan banner (sync)
 function showBanner() {
   console.clear();
-  const banner = figlet.textSync("AUTO TRANSFER", {
+  const banner = figlet.textSync("TRANSFER", {
     font: "Standard",
     horizontalLayout: "default",
     verticalLayout: "default",
   });
 
-  // Menambahkan padding untuk memposisikan [by WIN] di tengah bawah
+  // Menambahkan padding untuk memposisikan [by WIN] dan garis pemisah di tengah
   const lines = banner.split("\n");
   const byWinText = "[by WIN]";
+  const divider = "=".repeat(lines[0].length);
+  
   const padding = ' '.repeat(Math.floor((lines[0].length - byWinText.length) / 2)); // Menentukan padding agar [by WIN] terpusat
+  const dividerPadding = ' '.repeat(Math.floor((lines[0].length - divider.length) / 2)); // Menentukan padding agar divider terpusat
+
+  // Menampilkan banner dengan [by WIN] dan garis pemisah yang terpusat
   console.log(chalk.greenBright(banner));
-  console.log(chalk.greenBright("========================================"));
+  console.log(chalk.greenBright(`${dividerPadding}${divider}`));  // Garis pemisah yang terpusat
   console.log(chalk.greenBright(`${padding}${byWinText}`));  // Menambahkan padding ke [by WIN]
-  console.log(chalk.greenBright("========================================"));
+  console.log(chalk.greenBright(`${dividerPadding}${divider}`));  // Garis pemisah yang terpusat
 }
 
 // Input dari user
