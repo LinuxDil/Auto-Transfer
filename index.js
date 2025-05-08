@@ -39,7 +39,7 @@ function showBanner() {
 
   // Menambahkan padding untuk memposisikan [by WIN] dan garis pemisah di tengah
   const lines = banner.split("\n");
-  const byWinText = "[by WIN]";
+  const byWinText = "[by WIN] from Airdrop Seeker";
   const divider = "=".repeat(lines[0].length);
   
   const padding = ' '.repeat(Math.floor((lines[0].length - byWinText.length) / 2)); // Menentukan padding agar [by WIN] terpusat
