@@ -29,10 +29,26 @@ const erc20Abi = [
 
 // Fungsi untuk menampilkan banner
 function showBanner() {
-    figlet('AUTO TRANSFER');
+  figlet.text('TRANSFER', {
+    font: 'Standard', // kamu bisa ganti dengan font lain seperti 'Slant', 'Big', dll
+    horizontalLayout: 'default',
+    verticalLayout: 'default'
+  }, (err, data) => {
+    if (err) {
+      console.error('Something went wrong with figlet...');
+      console.error(err);
+      return;
+    }
+
+    console.clear();
+    console.log(chalk.greenBright(data));
+    console.log(chalk.greenBright('========================================'));
+    console.log(chalk.greenBright('                           [by WIN]'));
+    console.log(chalk.greenBright('========================================'));
+  });
 }
 
-// Panggil fungsi untuk menampilkan banner
+// Jalankan fungsi
 showBanner();
 
 // Input dari user
