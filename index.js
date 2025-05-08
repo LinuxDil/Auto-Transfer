@@ -36,9 +36,14 @@ function showBanner() {
     horizontalLayout: "default",
     verticalLayout: "default",
   });
+
+  // Menambahkan padding untuk memposisikan [by WIN] di tengah bawah
+  const lines = banner.split("\n");
+  const byWinText = "[by WIN]";
+  const padding = ' '.repeat(Math.floor((lines[0].length - byWinText.length) / 2)); // Menentukan padding agar [by WIN] terpusat
   console.log(chalk.greenBright(banner));
   console.log(chalk.greenBright("========================================"));
-  console.log(chalk.greenBright("                           [by WIN]"));
+  console.log(chalk.greenBright(`${padding}${byWinText}`));  // Menambahkan padding ke [by WIN]
   console.log(chalk.greenBright("========================================"));
 }
 
