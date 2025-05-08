@@ -37,17 +37,20 @@ function showBanner() {
     verticalLayout: "default",
   });
 
+  // Menambahkan padding untuk memposisikan [by WIN] dan garis pemisah di tengah
   const lines = banner.split("\n");
   const byWinText = "[by WIN]";
   const divider = "=".repeat(lines[0].length);
   
-  const padding = ' '.repeat(Math.floor((lines[0].length - byWinText.length) / 2)); 
-  const dividerPadding = ' '.repeat(Math.floor((lines[0].length - divider.length) / 2)); 
+  const padding = ' '.repeat(Math.floor((lines[0].length - byWinText.length) / 2)); // Menentukan padding agar [by WIN] terpusat
+  const dividerPadding = ' '.repeat(Math.floor((lines[0].length - divider.length) / 2)); // Menentukan padding agar divider terpusat
 
+  // Menampilkan banner dengan [by WIN] dan garis pemisah yang terpusat
   console.log(chalk.greenBright(banner));
-  console.log(chalk.greenBright(`${dividerPadding}${divider}`)); 
-  console.log(chalk.greenBright(`${padding}${byWinText}`)); 
-  console.log(chalk.greenBright(`${dividerPadding}${divider}`));  
+  console.log(chalk.greenBright(`${dividerPadding}${divider}`));  // Garis pemisah yang terpusat
+  console.log(chalk.greenBright(`${padding}${byWinText}`));  // Menambahkan padding ke [by WIN]
+  console.log(chalk.greenBright(`${dividerPadding}${divider}`));  // Garis pemisah yang terpusat
+}
 
 // Input dari user
 async function askQuestion(query) {
@@ -89,7 +92,7 @@ async function autoTransfer(selectedRpc) {
   const transferAll = await askQuestion("Transfer semua saldo? (y/n): ");
   const amountInput = transferAll.toLowerCase() === "y"
     ? "ALL"
-    : await askQuestion("Masukkan jumlah yang akan dikirim (contoh: 0.005): ");
+    : await askQuestion("Masukkan jumlah Token yang akan dikirim (contoh: 0.005): ");
 
   console.log(chalk.yellow(`\n🚀 Chain: ${selectedRpc.name} | Mode: ${mode === "1" ? "Native" : "ERC-20"} | Jumlah: ${amountInput}\n`));
 
@@ -116,7 +119,7 @@ async function autoTransfer(selectedRpc) {
         let rawAmount = amountInput === "ALL" ? balance : ethers.parseUnits(amountInput, tokenInfo.decimals);
 
         if (balance < rawAmount) {
-          console.log(chalk.red("❌ Saldo tidak cukup bang."));
+          console.log(chalk.red("❌ Saldo tidak cukup."));
           continue;
         }
 
@@ -142,7 +145,7 @@ async function autoTransfer(selectedRpc) {
         let rawAmount = amountInput === "ALL" ? balance : ethers.parseEther(amountInput);
 
         if (balance < rawAmount) {
-          console.log(chalk.red("❌ Saldo tidak cukup."));
+          console.log(chalk.red("❌ Saldo tidak cukup bang."));
           continue;
         }
 
