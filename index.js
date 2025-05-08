@@ -29,7 +29,7 @@ const erc20Abi = [
 // Fungsi banner
 function showBanner() {
     console.clear();
-    console.log(chalk.magentaBright(`
+    console.log(chalk.greenBright(`
 ========================================
   █████╗ ██╗   ██╗████████╗ ██████╗ 
  ██╔══██╗██║   ██║╚══██╔══╝██╔═══██╗
@@ -83,7 +83,7 @@ async function autoTransfer(selectedRpc) {
     const tokenAddress = selectedRpc.token;
 
     const mode = await askQuestion(
-        "Pilih mode transfer (1 untuk native coin, 2 untuk Token ERC-20): "
+        "Pilih mode transfer ( angka (1) untuk native Token, angka (2) untuk Token ERC-20): "
     );
 
     if (!["1", "2"].includes(mode)) {
@@ -100,7 +100,7 @@ async function autoTransfer(selectedRpc) {
         amountInput = await askQuestion("Masukkan jumlah yang akan dikirim (contoh: 0.005): ");
     }
 
-    console.log(chalk.yellow(`\n🚀 Chain: ${selectedRpc.name} | Mode: ${mode === "1" ? "Native Coin" : "Token ERC-20"} | Jumlah: ${amountInput}\n`));
+    console.log(chalk.yellow(`\n🚀 Chain: ${selectedRpc.name} | Mode: ${mode === "1" ? "Native Token" : "Token ERC-20"} | Jumlah: ${amountInput}\n`));
 
     let tokenInfo;
     if (mode === "2") {
@@ -203,14 +203,14 @@ async function autoTransfer(selectedRpc) {
                             to: recipient,
                             value: rawAmount
                         });
-                        console.log(chalk.green(`✅   Mengirim ${amountInput} native coin ke ${recipient}`));
+                        console.log(chalk.green(`✅   Mengirim ${amountInput} native Token ke ${recipient}`));
                         console.log(chalk.green(`✅   TX Hash: ${tx.hash}`));
                         await tx.wait();
 
                         const recipientBalance = await provider.getBalance(recipient);
                         console.log(chalk.green(`✅   Saldo penerima (${recipient}): ${ethers.formatEther(recipientBalance)} ${selectedRpc.name}`));
                     } catch (err) {
-                        console.log(chalk.red(`❌   Gagal kirim native coin ke ${recipient}: ${err.message}`));
+                        console.log(chalk.red(`❌   Gagal kirim native Token ke ${recipient}: ${err.message}`));
                     }
 
                     console.log(chalk.gray(`⏳   Tunggu 3 detik sebelum lanjut...\n`));
@@ -235,12 +235,12 @@ async function start() {
         exit(1);
     }
 
-    console.log("Daftar Coin:");
+    console.log("Daftar Chain Mainnet/Testnet:");
     rpcList.forEach((rpc, index) => {
         console.log(`${index + 1}. ${rpc.name}`);
     });
 
-    const selectedIndex = await askQuestion("Pilih coin yang akan diproses (masukkan nomor): ");
+    const selectedIndex = await askQuestion("Pilih CHAIN yang akan diproses (masukkan nomor): ");
     const selectedRpc = rpcList[Number(selectedIndex) - 1];
 
     if (!selectedRpc) {
