@@ -2,7 +2,7 @@ import { ethers } from "ethers";
 import dotenv from "dotenv";
 import fs from "fs";
 import chalk from "chalk";
-const figlet = require('figlet');
+import figlet from 'figlet';
 import { exit } from "process";
 dotenv.config();
 
