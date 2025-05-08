@@ -38,7 +38,7 @@ function showBanner() {
  ██║  ██║╚██████╔╝   ██║   ╚██████╔╝
  ╚═╝  ╚═╝ ╚═════╝    ╚═╝    ╚═════╝ 
 SAT SET AUTO TRANSFER
-                           [by WIN
+                           [by WIN]
 ========================================
 `));
 }
@@ -91,8 +91,14 @@ async function autoTransfer(selectedRpc) {
         exit(1);
     }
 
-    const amountInput = await askQuestion("Masukkan jumlah yang akan dikirim (contoh: 0.005): ");
-    const amount = ethers.parseEther(amountInput);
+    const transferAll = await askQuestion("Transfer semua saldo? (y untuk YA, n untuk input manual): ");
+    let amountInput;
+
+    if (transferAll.toLowerCase() === "y") {
+        amountInput = "ALL";
+    } else {
+        amountInput = await askQuestion("Masukkan jumlah yang akan dikirim (contoh: 0.005): ");
+    }
 
     console.log(chalk.yellow(`\n🚀 Chain: ${selectedRpc.name} | Mode: ${mode === "1" ? "Native Coin" : "Token ERC-20"} | Jumlah: ${amountInput}\n`));
 
@@ -134,7 +140,14 @@ async function autoTransfer(selectedRpc) {
         if (mode === "2") {
             const tokenContract = new ethers.Contract(tokenAddress, erc20Abi, senderWallet);
             try {
-                const rawAmount = ethers.parseUnits(amountInput, tokenInfo.decimals);
+                let rawAmount;
+                if (amountInput === "ALL") {
+                    const balance = await tokenContract.balanceOf(senderWallet.address);
+                    rawAmount = balance;
+                } else {
+                    rawAmount = ethers.parseUnits(amountInput, tokenInfo.decimals);
+                }
+
                 const balance = await tokenContract.balanceOf(senderWallet.address);
 
                 if (balance < rawAmount) {
@@ -169,7 +182,14 @@ async function autoTransfer(selectedRpc) {
                 const balance = await provider.getBalance(senderWallet.address);
                 console.log(chalk.greenBright(`✅   Saldo native: ${ethers.formatEther(balance)} ${selectedRpc.name}`));
 
-                if (balance < amount) {
+                let rawAmount;
+                if (amountInput === "ALL") {
+                    rawAmount = balance;
+                } else {
+                    rawAmount = ethers.parseEther(amountInput);
+                }
+
+                if (balance < rawAmount) {
                     console.log(chalk.red(`❌   Wallet tidak cukup saldo native (${ethers.formatEther(balance)})`));
                     continue;
                 }
@@ -181,7 +201,7 @@ async function autoTransfer(selectedRpc) {
                     try {
                         const tx = await senderWallet.sendTransaction({
                             to: recipient,
-                            value: amount
+                            value: rawAmount
                         });
                         console.log(chalk.green(`✅   Mengirim ${amountInput} native coin ke ${recipient}`));
                         console.log(chalk.green(`✅   TX Hash: ${tx.hash}`));
