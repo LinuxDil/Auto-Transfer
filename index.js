@@ -2,6 +2,7 @@ import { ethers } from "ethers";
 import dotenv from "dotenv";
 import fs from "fs";
 import chalk from "chalk";
+const figlet = require('figlet');
 import { exit } from "process";
 dotenv.config();
 
@@ -26,22 +27,24 @@ const erc20Abi = [
     "function symbol() view returns (string)"
 ];
 
-// Fungsi banner
+// Fungsi untuk menampilkan banner
 function showBanner() {
-    console.clear();
-    console.log(chalk.greenBright(`
-========================================
-  █████╗ ██╗   ██╗████████╗ ██████╗ 
- ██╔══██╗██║   ██║╚══██╔══╝██╔═══██╗
- ███████║██║   ██║   ██║   ██║   ██║
- ██╔══██║██║   ██║   ██║   ██║   ██║
- ██║  ██║╚██████╔╝   ██║   ╚██████╔╝
- ╚═╝  ╚═╝ ╚═════╝    ╚═╝    ╚═════╝ 
-TRANSFER
-                           [by WIN]
-========================================
-`));
+    figlet('TRANSFER', (err, data) => {
+        if (err) {
+            console.log('Something went wrong...');
+            console.dir(err);
+            return;
+        }
+        console.clear();
+        console.log(chalk.greenBright(data));
+        console.log(chalk.greenBright('========================================'));
+        console.log(chalk.greenBright('                           [by WIN]'));
+        console.log(chalk.greenBright('========================================'));
+    });
 }
+
+// Panggil fungsi untuk menampilkan banner
+showBanner();
 
 // Input dari user
 async function askQuestion(query) {
