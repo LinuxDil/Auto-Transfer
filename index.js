@@ -29,18 +29,7 @@ const erc20Abi = [
 
 // Fungsi untuk menampilkan banner
 function showBanner() {
-    figlet('TRANSFER', (err, data) => {
-        if (err) {
-            console.log('Something went wrong...');
-            console.dir(err);
-            return;
-        }
-        console.clear();
-        console.log(chalk.greenBright(data));
-        console.log(chalk.greenBright('========================================'));
-        console.log(chalk.greenBright('                           [by WIN]'));
-        console.log(chalk.greenBright('========================================'));
-    });
+    figlet('AUTO TRANSFER');
 }
 
 // Panggil fungsi untuk menampilkan banner
