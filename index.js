@@ -83,7 +83,7 @@ async function autoTransfer(selectedRpc) {
     const tokenAddress = selectedRpc.token;
 
     const mode = await askQuestion(
-        "Pilih mode transfer ( angka (1) untuk native Token, angka (2) untuk Token ERC-20): "
+        "Pilih mode transfer! (angka (1) untuk native Token, angka (2) untuk Token ERC-20): "
     );
 
     if (!["1", "2"].includes(mode)) {
@@ -91,7 +91,7 @@ async function autoTransfer(selectedRpc) {
         exit(1);
     }
 
-    const transferAll = await askQuestion("Transfer semua saldo? (y untuk YA, n untuk input manual): ");
+    const transferAll = await askQuestion("Transfer semua saldo? (huruf (y) untuk YA, huruf (n) untuk input manual): ");
     let amountInput;
 
     if (transferAll.toLowerCase() === "y") {
