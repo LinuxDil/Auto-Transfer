@@ -31,7 +31,7 @@ const erc20Abi = [
 // Fungsi untuk menampilkan banner (sync)
 function showBanner() {
   console.clear();
-  const banner = figlet.textSync("TRANSFER", {
+  const banner = figlet.textSync("AUTO TRANSFER", {
     font: "Standard",
     horizontalLayout: "default",
     verticalLayout: "default",
